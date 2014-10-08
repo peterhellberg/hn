@@ -75,6 +75,9 @@ func (c *Client) NewRequest(s string) (*http.Request, error) {
 // decoded and stored in the value pointed to by v, or returned as an error if
 // an API error has occurred.
 func (c *Client) Do(req *http.Request, v interface{}) (*http.Response, error) {
+	// Make sure to close the connection after replying to this request
+	req.Close = true
+
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, err
