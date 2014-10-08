@@ -13,9 +13,6 @@ type itemsService struct {
 	client *Client
 }
 
-// ItemID represents a item id
-type ItemID int
-
 // Item represents a item
 type Item struct {
 	ID      int    `json:"id"`
