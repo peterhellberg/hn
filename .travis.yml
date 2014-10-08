@@ -1,0 +1,11 @@
+language: go
+
+go:
+  - 1.3.3
+
+install:
+  - go get github.com/stretchr/testify/assert
+
+branches:
+  only:
+    - master
