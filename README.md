@@ -3,6 +3,7 @@
 Go library for the [Hacker News API](https://github.com/HackerNews/API)
 
 [![GoDoc](https://godoc.org/github.com/peterhellberg/hn?status.svg)](https://godoc.org/github.com/peterhellberg/hn)
+[![Build Status](https://travis-ci.org/peterhellberg/hn.svg?branch=master)](https://travis-ci.org/peterhellberg/hn)
 
 ## Installation
 
