@@ -27,19 +27,17 @@ func main() {
   hn := hn.NewClient(nil)
 
   ids, err := hn.TopStories()
-  check(err)
+  if err != nil {
+    panic(err)
+  }
 
   for i, id := range ids[:10] {
     item, err := hn.Item(id)
-    check(err)
+    if err != nil {
+      panic(err)
+    }
 
-    fmt.Println(i, "–", item.Title)
-  }
-}
-
-func check(err error) {
-  if err != nil {
-    panic(err)
+    fmt.Println(i, "–", item.Title, "\n   ", item.URL, "\n")
   }
 }
 ```
