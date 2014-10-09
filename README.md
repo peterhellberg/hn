@@ -52,6 +52,27 @@ func main() {
 }
 ```
 
+Showing information about a given user (first argument)
+
+```go
+package main
+
+import (
+  "fmt"
+  "os"
+
+  "github.com/peterhellberg/hn"
+)
+
+func main() {
+  if u, err := hn.NewClient(nil).User(os.Args[1]); err == nil {
+    fmt.Println("ID:   ", u.ID)
+    fmt.Println("About:", u.About)
+    fmt.Println("Karma:", u.Karma)
+  }
+}
+```
+
 ## License
 
 > *The MIT License (MIT)*
