@@ -26,5 +26,11 @@ func TestItem_8952(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, "nickb", item.By)
-	assert.Equal(t, 1175727286, item.Time)
+	assert.Equal(t, 1175727286, item.Timestamp)
+}
+
+func TestItemTime(t *testing.T) {
+	item := Item{Timestamp: 1175727286}
+
+	assert.Equal(t, "2007-04-0", item.Time().Format("2006-01-02"))
 }
