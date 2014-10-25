@@ -52,6 +52,70 @@ func main() {
 }
 ```
 
+Showing the current top ten stories using goroutines, a channel and a wait group
+
+```go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "sync"
+  "time"
+
+  "github.com/peterhellberg/hn"
+)
+
+type indexItem struct {
+  Index int
+  Item  *hn.Item
+}
+
+var (
+  items    = map[int]*hn.Item{}
+  messages = make(chan indexItem)
+)
+
+func main() {
+  hn := hn.NewClient(&http.Client{
+    Timeout: time.Duration(5 * time.Second),
+  })
+
+  ids, err := hn.TopStories()
+  if err != nil {
+    panic(err)
+  }
+
+  go func() {
+    for i := range messages {
+      items[i.Index] = i.Item
+    }
+  }()
+
+  var wg sync.WaitGroup
+
+  for i, id := range ids[:10] {
+    wg.Add(1)
+    go func(i, id int) {
+      defer wg.Done()
+
+      item, err := hn.Item(id)
+      if err != nil {
+        panic(err)
+      }
+
+      messages <- indexItem{i, item}
+    }(i, id)
+  }
+
+  wg.Wait()
+
+  for i := 0; i < 10; i++ {
+    fmt.Println(i, "–", items[i].Title, "\n   ", items[i].URL, "\n")
+  }
+}
+```
+
 Showing information about a given user (first argument)
 
 ```go
