@@ -55,6 +55,10 @@ func (s *itemsService) Get(id int) (*Item, error) {
 		return nil, err
 	}
 
+	if item.Type == "story" && item.URL == "" {
+		item.URL = fmt.Sprintf("https://news.ycombinator.com/item?id=%v", id)
+	}
+
 	return &item, nil
 }
 
