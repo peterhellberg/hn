@@ -33,6 +33,7 @@ type Item struct {
 	Deleted   bool   `json:"deleted"`
 }
 
+// Time return the time of the timestamp
 func (i *Item) Time() time.Time {
 	return time.Unix(int64(i.Timestamp), 0)
 }
