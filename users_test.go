@@ -1,12 +1,12 @@
 package hn
 
 import (
-	"testing"
+	. "testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestUser(t *testing.T) {
+func TestUser(t *T) {
 	ts, c := testServerAndClientByFixture("peterhellberg")
 	defer ts.Close()
 

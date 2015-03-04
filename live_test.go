@@ -1,12 +1,12 @@
 package hn
 
 import (
-	"testing"
+	. "testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestTopStories(t *testing.T) {
+func TestTopStories(t *T) {
 	ts, c := testServerAndClientByFixture("topstories")
 	defer ts.Close()
 
@@ -16,7 +16,7 @@ func TestTopStories(t *testing.T) {
 	assert.Equal(t, 100, len(top))
 }
 
-func TestMaxItem(t *testing.T) {
+func TestMaxItem(t *T) {
 	ts, c := testServerAndClientByFixture("maxitem")
 	defer ts.Close()
 
@@ -26,7 +26,7 @@ func TestMaxItem(t *testing.T) {
 	assert.Equal(t, 8424452, item)
 }
 
-func TestUpdates(t *testing.T) {
+func TestUpdates(t *T) {
 	ts, c := testServerAndClientByFixture("updates")
 	defer ts.Close()
 
