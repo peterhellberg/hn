@@ -6,19 +6,19 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
-	"testing"
+	. "testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestNewClient(t *testing.T) {
+func TestNewClient(t *T) {
 	c := NewClient(nil)
 
 	assert.Equal(t, "https://hacker-news.firebaseio.com/v0/", c.BaseURL.String())
 	assert.Equal(t, "hn.go/0.0.1", c.UserAgent)
 }
 
-func TestNewRequest(t *testing.T) {
+func TestNewRequest(t *T) {
 	r, err := NewClient(nil).NewRequest(fmt.Sprintf("foo?bar=%v", 123))
 
 	assert.Nil(t, err)
