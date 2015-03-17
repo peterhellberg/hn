@@ -15,3 +15,11 @@ func TestUser(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, 1300226645, user.Created)
 }
+
+func TestMissingUser(t *testing.T) {
+	ts, c := testServerAndClient([]byte(`{}`))
+	defer ts.Close()
+
+	_, err := c.User("")
+	assert.Equal(t, errMissingID, err)
+}
