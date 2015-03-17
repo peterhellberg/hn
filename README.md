@@ -129,6 +129,10 @@ import (
 )
 
 func main() {
+  if len(os.Args) < 2 {
+    return
+  }
+
   if u, err := hn.NewClient(nil).User(os.Args[1]); err == nil {
     fmt.Println("ID:   ", u.ID)
     fmt.Println("About:", u.About)
