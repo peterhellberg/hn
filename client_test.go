@@ -25,15 +25,19 @@ func TestNewRequest(t *testing.T) {
 	assert.Equal(t, "https://hacker-news.firebaseio.com/v0/foo?bar=123", r.URL.String())
 }
 
-func testServerAndClientByFixture(fn string) (*httptest.Server, *Client) {
-	body, _ := ioutil.ReadFile("_fixtures/" + fn + ".json")
-
+func testServerAndClient(body []byte) (*httptest.Server, *Client) {
 	ts := testServer(body)
 
 	c := NewClient(nil)
 	c.BaseURL, _ = url.Parse(ts.URL)
 
 	return ts, c
+}
+
+func testServerAndClientByFixture(fn string) (*httptest.Server, *Client) {
+	body, _ := ioutil.ReadFile("_fixtures/" + fn + ".json")
+
+	return testServerAndClient(body)
 }
 
 func testServer(body []byte) *httptest.Server {
