@@ -2,6 +2,8 @@ package hn
 
 import "fmt"
 
+var errMissingID = fmt.Errorf("missing id")
+
 // UsersService communicates with the news
 // related endpoints in the Hacker News API
 type UsersService interface {
@@ -30,6 +32,10 @@ func (c *Client) User(id string) (*User, error) {
 
 // Get retrieves a user with the given id
 func (s *usersService) Get(id string) (*User, error) {
+	if id == "" {
+		return nil, errMissingID
+	}
+
 	req, err := s.client.NewRequest(s.getPath(id))
 	if err != nil {
 		return nil, err
