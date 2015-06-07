@@ -14,6 +14,7 @@ func TestUser(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, 1300226645, user.Created)
+	assert.Equal(t, "2011-03-15", user.CreatedTime().UTC().Format("2006-01-02"))
 }
 
 func TestMissingUser(t *testing.T) {

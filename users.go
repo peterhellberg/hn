@@ -1,6 +1,9 @@
 package hn
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 var errMissingID = fmt.Errorf("missing id")
 
@@ -23,6 +26,11 @@ type User struct {
 	ID        string `json:"id"`
 	Karma     int    `json:"karma"`
 	Submitted []int  `json:"submitted"`
+}
+
+// CreatedTime return the time of the created
+func (u *User) CreatedTime() time.Time {
+	return time.Unix(int64(u.Created), 0)
 }
 
 // User is a convenience method proxying Users.Get
