@@ -7,6 +7,9 @@ import (
 	"net/url"
 )
 
+// DefaultClient is the default Hacker News API client
+var DefaultClient = NewClient()
+
 const (
 	libraryVersion = "0.0.1"
 	userAgent      = "hn.go/" + libraryVersion
@@ -29,9 +32,13 @@ type Client struct {
 }
 
 // NewClient returns a new Hacker News API client.
-// If httpClient is nil, http.DefaultClient is used.
-func NewClient(httpClient *http.Client) *Client {
-	if httpClient == nil {
+// If no *http.Client were provided then http.DefaultClient is used.
+func NewClient(httpClients ...*http.Client) *Client {
+	var httpClient *http.Client
+
+	if len(httpClients) > 0 && httpClients[0] != nil {
+		httpClient = httpClients[0]
+	} else {
 		cloned := *http.DefaultClient
 		httpClient = &cloned
 	}
