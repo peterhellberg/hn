@@ -1,10 +1,6 @@
 package hn
 
-import (
-	"testing"
-
-	"github.com/stretchr/testify/assert"
-)
+import "testing"
 
 func TestUser(t *testing.T) {
 	ts, c := testServerAndClientByFixture("peterhellberg")
@@ -12,15 +8,24 @@ func TestUser(t *testing.T) {
 
 	user, err := c.User("peterhellberg")
 
-	assert.Nil(t, err)
-	assert.Equal(t, 1300226645, user.Created)
-	assert.Equal(t, "2011-03-15", user.CreatedTime().UTC().Format("2006-01-02"))
+	if err != nil {
+		t.Fatalf(`err != nil, got %v`, err)
+	}
+
+	if got, want := user.Created, 1300226645; got != want {
+		t.Fatalf(`user.Created = %d, want %d`, got, want)
+	}
+
+	if got, want := user.CreatedTime().UTC().Format("2006-01-02"), "2011-03-15"; got != want {
+		t.Fatalf(`user.CreatedTime().UTC().Format("2006-01-02") = %q, want %q`, got, want)
+	}
 }
 
 func TestMissingUser(t *testing.T) {
 	ts, c := testServerAndClient([]byte(`{}`))
 	defer ts.Close()
 
-	_, err := c.User("")
-	assert.Equal(t, errMissingID, err)
+	if _, err := c.User(""); err != errMissingID {
+		t.Fatalf(`err != errMissingID, got %v`, err)
+	}
 }

@@ -1,10 +1,6 @@
 package hn
 
-import (
-	"testing"
-
-	"github.com/stretchr/testify/assert"
-)
+import "testing"
 
 func TestTopStories(t *testing.T) {
 	ts, c := testServerAndClientByFixture("topstories")
@@ -12,8 +8,13 @@ func TestTopStories(t *testing.T) {
 
 	top, err := c.TopStories()
 
-	assert.Nil(t, err)
-	assert.Equal(t, 100, len(top))
+	if err != nil {
+		t.Fatalf(`err != nil, got %v`, err)
+	}
+
+	if got, want := len(top), 100; got != want {
+		t.Fatalf(`len(top) = %d, want %d`, got, want)
+	}
 }
 
 func TestMaxItem(t *testing.T) {
@@ -22,8 +23,13 @@ func TestMaxItem(t *testing.T) {
 
 	item, err := c.MaxItem()
 
-	assert.Nil(t, err)
-	assert.Equal(t, 8424452, item)
+	if err != nil {
+		t.Fatalf(`err != nil, got %v`, err)
+	}
+
+	if got, want := item, 8424452; got != want {
+		t.Fatalf(`item = %d, want %d`, got, want)
+	}
 }
 
 func TestUpdates(t *testing.T) {
@@ -32,7 +38,15 @@ func TestUpdates(t *testing.T) {
 
 	updates, err := c.Updates()
 
-	assert.Nil(t, err)
-	assert.Equal(t, "benologist", updates.Profiles[5])
-	assert.Equal(t, 8423650, updates.Items[7])
+	if err != nil {
+		t.Fatalf(`err != nil, got %v`, err)
+	}
+
+	if got, want := updates.Profiles[5], "benologist"; got != want {
+		t.Fatalf(`updates.Profiles[5] = %q, want %q`, got, want)
+	}
+
+	if got, want := updates.Items[7], 8423650; got != want {
+		t.Fatalf(`updates.Items[7] = %d, want %d`, got, want)
+	}
 }

@@ -7,28 +7,36 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestNewClient(t *testing.T) {
-	c := NewClient(nil)
+	c := NewClient()
 
-	assert.Equal(t, "https://hacker-news.firebaseio.com/v0/", c.BaseURL.String())
-	assert.Equal(t, "hn.go/0.0.1", c.UserAgent)
+	if got, want := c.BaseURL.String(), "https://hacker-news.firebaseio.com/v0/"; got != want {
+		t.Fatalf(`c.BaseURL.String() = %q, want %q`, got, want)
+	}
+
+	if got, want := c.UserAgent, "hn.go/0.0.1"; got != want {
+		t.Fatalf(`c.UserAgent = %q, want %q`, got, want)
+	}
 }
 
 func TestNewRequest(t *testing.T) {
 	r, err := NewClient(nil).NewRequest(fmt.Sprintf("foo?bar=%v", 123))
 
-	assert.Nil(t, err)
-	assert.Equal(t, "https://hacker-news.firebaseio.com/v0/foo?bar=123", r.URL.String())
+	if err != nil {
+		t.Fatalf(`err != nil, got %v`, err)
+	}
+
+	if got, want := r.URL.String(), "https://hacker-news.firebaseio.com/v0/foo?bar=123"; got != want {
+		t.Fatalf(`r.URL.String() = %q, want %q`, got, want)
+	}
 }
 
 func testServerAndClient(body []byte) (*httptest.Server, *Client) {
 	ts := testServer(body)
 
-	c := NewClient(nil)
+	c := DefaultClient
 	c.BaseURL, _ = url.Parse(ts.URL)
 
 	return ts, c
