@@ -33,9 +33,7 @@ import (
 )
 
 func main() {
-  // NewClient returns a new Hacker News API client.
-  // If httpClient is nil, http.DefaultClient is used.
-  hn := hn.NewClient(nil)
+  hn := hn.DefaultClient
 
   ids, err := hn.TopStories()
   if err != nil {
@@ -134,7 +132,7 @@ func main() {
     return
   }
 
-  if u, err := hn.NewClient(nil).User(os.Args[1]); err == nil {
+  if u, err := hn.DefaultClient.User(os.Args[1]); err == nil {
     fmt.Println("ID:   ", u.ID)
     fmt.Println("About:", u.About)
     fmt.Println("Karma:", u.Karma)
