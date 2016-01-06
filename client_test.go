@@ -33,6 +33,12 @@ func TestNewRequest(t *testing.T) {
 	}
 }
 
+func TestNewRequest_invalidPath(t *testing.T) {
+	if _, err := NewClient(nil).NewRequest("%"); err == nil {
+		t.Fatalf("expected to get error for invalid path")
+	}
+}
+
 func testServerAndClient(body []byte) (*httptest.Server, *Client) {
 	ts := testServer(body)
 
