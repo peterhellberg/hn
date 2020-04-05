@@ -18,19 +18,20 @@ type itemsService struct {
 
 // Item represents a item
 type Item struct {
-	ID        int    `json:"id"`
-	Parent    int    `json:"parent"`
-	Kids      []int  `json:"kids"`
-	Parts     []int  `json:"parts"`
-	Score     int    `json:"score"`
-	Timestamp int    `json:"time"`
-	By        string `json:"by"`
-	Type      string `json:"type"`
-	Title     string `json:"title"`
-	Text      string `json:"text"`
-	URL       string `json:"url"`
-	Dead      bool   `json:"dead"`
-	Deleted   bool   `json:"deleted"`
+	ID          int    `json:"id"`
+	Parent      int    `json:"parent"`
+	Kids        []int  `json:"kids"`
+	Descendants int    `json:"descendants"`
+	Parts       []int  `json:"parts"`
+	Score       int    `json:"score"`
+	Timestamp   int    `json:"time"`
+	By          string `json:"by"`
+	Type        string `json:"type"`
+	Title       string `json:"title"`
+	Text        string `json:"text"`
+	URL         string `json:"url"`
+	Dead        bool   `json:"dead"`
+	Deleted     bool   `json:"deleted"`
 }
 
 // Time return the time of the timestamp
